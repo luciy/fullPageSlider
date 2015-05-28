@@ -7,7 +7,7 @@ fullPageSlider 移动端（基于Zepto）的竖屏轮播插件：http://demo.uis
 #### 用法
 只需要引入依赖的资源，遵循下面例子中的模式。
 | 路径      | 描述 |
-| :-------- | --------:|
+| :-------- | :--------|
 | `js/fullPageSlider.js` | js引用路径。 |
 | `css/base.css`|  css引用路径。  |
 

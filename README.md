@@ -106,3 +106,16 @@ var slider = new FullPageSlider({
 |`inext()`|	显示轮播图下一张。|
 |`getPos()`	|返回当前幻灯片的索引位置。|
 |`getNumSlides()`	|返回幻灯片总量。|
+
+
+
+------------------------------
+
+#### 最新版本
+0.3.1(150528)		新增API调用方法。
+
+------------------------------
+#### 支持设备的浏览器
+
+- iOS7 Safari (and above)
+- Android 4.0.3 (and above default browser)

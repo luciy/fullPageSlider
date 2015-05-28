@@ -1,6 +1,7 @@
 # 竖屏轮播组件
 
-fullPageSlider 移动端（基于Zepto）的竖屏轮播插件：http://demo.uis.cc/fullPageSlider/ （chrome 模拟移动端查看 ）
+fullPageSlider 移动端（基于Zepto）的竖屏轮播插件：http://luciy.github.io/fullPageSlider/
+Demo: http://demo.uis.cc/fullPageSlider/ （chrome 模拟移动端查看 ）
 
 ------------------------------
 

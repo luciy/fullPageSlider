@@ -83,7 +83,7 @@ if (typeof Zepto === 'undefined') {
     FullPageSlider.prototype.event = function() {
         var _this = this;
 
-        _this.$wrap.on('touchstart', function(e) {
+        _this.$layout.on('touchstart', function(e) {
                 if (!_this.animated) {
                     return;
                 }
@@ -210,6 +210,25 @@ if (typeof Zepto === 'undefined') {
             '-webkit-transform': 'translate3d(0,' + -_this.iNow * _this.pageHeight + 'px,0)'
         });
     }
+
+    FullPageSlider.prototype.next = function(){
+        this.iNow++;
+        this.moveSilder();
+    }
+
+    FullPageSlider.prototype.prev = function(){
+        this.iNow--;
+        this.moveSilder();
+    }
+
+    FullPageSlider.prototype.getPos = function(){
+        return this.iNow;
+    }
+
+    FullPageSlider.prototype.getNumSlides = function(){
+        return this.itemCont;
+    }
+
 
     window.FullPageSlider = FullPageSlider;
 

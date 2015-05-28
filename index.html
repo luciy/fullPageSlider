@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=0" />
+    <title>FullPageSlider</title>
+    <link rel="stylesheet" href="assets/css/base.css">
+</head>
+
+<body>
+    <section class="full-page">
+        <div class="content" id="touchSilder">
+            <div class="item01">
+                <div class="text01"></div>
+                <h2>page1</h2>
+            </div>
+            <div class="item02">
+                <div class="text02"></div>
+                <h2>page2</h2>
+            </div>
+            <div class="item03">
+                <div class="text03"></div>
+                <h2>page3</h2>
+            </div>
+        </div>
+        <div class="tip-top"></div>
+    </section>
+    <script src="assets/js/zepto.min.js"></script>
+    <script src="assets/js/fx.js"></script>
+    <script src="assets/js/FullPageSlider.js"></script>
+    <script>
+        var slider = new FullPageSlider({
+            layout: '.full-page',                   // 外层Dom
+            wrap: '.content',                       // 包裹容器
+            activeClassName: 'active',              // 动画当前页面外层添加的class名称用于CSS3动画
+            animationDuration: 500,                 // 动画时间
+            timingFunction: 'ease',                 // 动画曲线
+            index: 0,                               // 开始位置
+            continuous: true,                       // 无限滚动
+            callback: function(index) {             // 切换后的回调
+                console.log(index);
+            }
+        });
+    </script>
+</body>
+
+</html>

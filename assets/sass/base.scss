@@ -1,0 +1,122 @@
+@charset "UTF-8";
+// 导入core中的基础文件
+// ====================================
+@import "core/setting";
+@import "core/reset";
+@import "core/css3";
+@import "core/media-queries";
+@import "core/mixin";
+html,
+body {
+    height: 100%;
+}
+
+.full-page {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    .content {
+        height: 100%;
+        & > div {
+            position: relative;
+            height: 100%;
+        }
+    }
+    .item01 {
+        background: #f39800;
+    }
+    .item02 {
+        background: #ac6a00;
+    }
+    .item03 {
+        background: #eb6100;
+    }
+    .text01 {
+        opacity: 0;
+        width: 100px;
+        height: 100px;
+        position: absolute;
+        top: 14.16%;
+        left: 50%;
+        background: #fff;
+    }
+    .text02 {
+        opacity: 0;
+        width: 100px;
+        height: 100px;
+        position: absolute;
+        top: 13.33%;
+        left: 10.93%;
+        background: #fff;
+    }
+    .text03 {
+        opacity: 0;
+        width: 100px;
+        height: 100px;
+        position: absolute;
+        top: 28.16%;
+        left: 15px;
+        background: #fff;
+    }
+    .tip-top {
+        width: 26px;
+        height: 22px;
+        position: fixed;
+        left: 50%;
+        bottom: 100px;
+        margin-left: -13px;
+        background:url(#{$imgPath}tip-top.png) no-repeat;
+        background-size: 26px;
+        -webkit-animation: moveIconUp ease 1.5s both infinite;
+        animation: moveIconUp ease 1.5s both infinite;
+    }
+    .active {
+        .text01 {
+            -webkit-animation: fadeInDown 600ms ease-out both;
+        }
+        .text02 {
+            -webkit-animation: fadeInLeft 600ms ease-out both;
+        }
+        .text03 {
+            -webkit-animation: fadeInLeft 600ms ease-out both;
+        }
+    }
+}
+
+@-webkit-keyframes fadeInLeft {
+    0% {
+        -webkit-transform: translate3d(30px, 0, 0);
+        opacity: 0;
+    }
+    100% {
+        -webkit-transform: translate3d(0, 0, 0);
+        opacity: 1;
+    }
+}
+
+@-webkit-keyframes fadeInDown {
+    0% {
+        -webkit-transform: translate3d(0, 30px, 0);
+        opacity: 0;
+    }
+    100% {
+        -webkit-transform: translate3d(0, 0, 0);
+        opacity: 1;
+    }
+}
+
+@-webkit-keyframes moveIconUp {
+    0% {
+        -webkit-transform: translateY(20%);
+        opacity: 0
+    }
+    50% {
+        -webkit-transform: translateY(0%);
+        opacity: 1
+    }
+    100% {
+        -webkit-transform: translateY(-40%);
+        opacity: 0
+    }
+}

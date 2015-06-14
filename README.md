@@ -4,6 +4,8 @@ fullPageSlider 移动端（基于Zepto）的竖屏轮播插件：http://luciy.gi
 
 Demo: http://demo.uis.cc/fullPageSlider/ （chrome 模拟移动端查看 ）
 
+![enter image description here](http://ww3.sinaimg.cn/mw690/a15bf48dgw1et3flkemwaj2074074dgc.jpg)
+
 ------------------------------
 
 #### 用法

@@ -1,10 +1,10 @@
 /**
  * FullPageSlider.js
  * @author  : lengxu
- * @version : 0.3.1
- * @date    : 2015-05-28
+ * @version : 1.0.1
+ * @date    : 2015-07-23
  * http://www.uis.cc/
- * copyright (c) 2014-2015, Autohome.QingUI v0.2.1
+ * copyright (c) 2014-2015, Autohome.QingUI v1.0.4
  */
 ;
 if (typeof Zepto === 'undefined') {
@@ -12,8 +12,6 @@ if (typeof Zepto === 'undefined') {
 }
 
 // FullPageSlider组件
-// ==============================
-
 ! function($) {
     'use strict';
 
@@ -21,14 +19,14 @@ if (typeof Zepto === 'undefined') {
 
         // 定义配置选项
         config = $.extend({
-            layout: '.full-page',       // 外层Dom
-            wrap: '.content',           // 包裹容器
-            activeClassName: 'active',  // 动画当前页面外层添加的class名称用于CSS3动画
-            animationDuration: 500,     // 动画时间
-            timingFunction: 'ease',     // 动画曲线
-            index: 0,                   // 开始位置
-            continuous: true,           // 无限滚动
-            callback: function() {}     // 切换后的回调
+            layout: '.full-page',           // 外层Dom
+            wrap: '.content',               // 包裹容器
+            activeClassName: 'active',      // 动画当前页面外层添加的class名称用于CSS3动画
+            animationDuration: 500,         // 动画时间
+            timingFunction: 'ease',         // 动画曲线
+            index: 0,                       // 开始位置
+            continuous: true,               // 无限滚动
+            callback: function() {}         // 切换后的回调
         }, config);
 
         // dom 选取
@@ -45,86 +43,82 @@ if (typeof Zepto === 'undefined') {
         this.timingFunction = config.timingFunction;
         this.activeClassName = config.activeClassName;
 
-        this.animated = true; // 定义动画开关监控动画是否运动完成
+        this.animated = true;               // 定义动画开关监控动画是否运动完成
 
         // 初始化
         this.init();
         // 绑定事件
         this.event();
-    }
+    };
 
     // 初始化
-    // ==============================
     FullPageSlider.prototype.init = function() {
-        var _this = this;
+        var self = this;
 
-        _this.pageWidht = document.documentElement.clientWidth;
-        _this.pageHeight = document.documentElement.clientHeight;
+        self.pageWidht = document.documentElement.clientWidth;
+        self.pageHeight = document.documentElement.clientHeight;
 
-        if (_this.continuous) {
-            _this.iNow++;
-            _this.$wrap.append(_this.$items.eq(0).clone());
-            _this.$wrap.prepend(_this.$items.eq(_this.$items.length - 1).clone());
-            _this.$items = this.$wrap.children();
+        if (self.continuous) {
+            self.iNow++;
+            self.$wrap.append(self.$items.eq(0).clone());
+            self.$wrap.prepend(self.$items.eq(self.$items.length - 1).clone());
+            self.$items = self.$wrap.children();
         }
 
-        _this.$wrap.css({
-            'transform': 'translate3d(0,' + (-_this.iNow * _this.pageHeight) + 'px,0)',
-            '-webkit-transform': 'translate3d(0,' + (-_this.iNow * _this.pageHeight) + 'px,0)'
+        self.$wrap.css({
+            'transform': 'translate3d(0,' + (-self.iNow * self.pageHeight) + 'px,0)',
+            '-webkit-transform': 'translate3d(0,' + (-self.iNow * self.pageHeight) + 'px,0)'
         });
-        _this.callback && _this.callback(_this.iNow);
-        _this.$items.eq(_this.iNow).addClass(this.activeClassName)
-    }
-
+        self.callback && self.callback(self.iNow);
+        self.$items.eq(self.iNow).addClass(self.activeClassName)
+    };
 
     // 事件绑定
-    // ==============================
-
     FullPageSlider.prototype.event = function() {
-        var _this = this;
+        var self = this;
 
-        _this.$layout.on('touchstart', function(e) {
-                if (!_this.animated) {
+        self.$layout.on('touchstart', function(e) {
+                if (!self.animated) {
                     return;
                 }
-                _this.startTime = new Date() * 1;
-                _this.startY = e.touches[0].pageY;
-                _this.offsetY = 0;
+                self.startTime = new Date() * 1;
+                self.startY = e.touches[0].pageY;
+                self.offsetY = 0;
             })
             .on('touchmove', function(e) {
                 e.preventDefault();
-                if (!_this.animated) {
+                if (!self.animated) {
                     return;
                 }
-                _this.offsetY = _this.startY - e.targetTouches[0].pageY;
-                _this.$wrap.css({
-                    'transform': 'translate3d(0,' + (-_this.iNow * _this.pageHeight - _this.offsetY) + 'px,0)',
-                    '-webkit-transform': 'translate3d(0,' + (-_this.iNow * _this.pageHeight - _this.offsetY) + 'px,0)'
+                self.offsetY = self.startY - e.targetTouches[0].pageY;
+                self.$wrap.css({
+                    'transform': 'translate3d(0,' + (-self.iNow * self.pageHeight - self.offsetY) + 'px,0)',
+                    '-webkit-transform': 'translate3d(0,' + (-self.iNow * self.pageHeight - self.offsetY) + 'px,0)'
                 });
             })
             .on('touchend', function(evt) {
-                if (!_this.animated) {
+                if (!self.animated) {
                     return;
                 }
 
-                var boundary = _this.pageHeight / 20; //边界就翻页值
+                var boundary = self.pageHeight / 20;     //边界就翻页值
                 var endTime = new Date() * 1;
-                var direction = ''; //滑动方向
+                var direction = '';                      //滑动方向
 
                 //判断手势
-                if (endTime - _this.startTime > 300) {
-                    if (_this.offsetY >= boundary) {
+                if (endTime - self.startTime > 300) {
+                    if (self.offsetY >= boundary) {
                         direction = 'swipeDown';
-                    } else if (_this.offsetY < 0 && _this.offsetY < -boundary) {
+                    } else if (self.offsetY < 0 && self.offsetY < -boundary) {
                         direction = 'swipeUp';
                     } else {
                         direction = 'static';
                     }
                 } else {
-                    if (_this.offsetY > 30) {       //快速移动也能使得翻页
-                        direction = 'swipeDown';    //向下滑动
-                    } else if (_this.offsetY < -30) {
-                        direction = 'swipeUp';      //向上滑动
+                    if (self.offsetY > 30) {            //快速移动也能使得翻页
+                        direction = 'swipeDown';        //向下滑动
+                    } else if (self.offsetY < -30) {
+                        direction = 'swipeUp';          //向上滑动
                     } else {
                         direction = 'static';
                     }
@@ -132,103 +126,119 @@ if (typeof Zepto === 'undefined') {
 
                 switch (direction) {
                     case 'swipeUp':
-                        _this.iNow--;
-                        _this.moveSilder();
+                        self.iNow--;
+                        self.moveSilder();
                         break;
                     case 'swipeDown':
-                        _this.iNow++;
-                        _this.moveSilder();
+                        self.iNow++;
+                        self.moveSilder();
                         break;
                     case 'static':
-                        _this.moveSilder();
+                        self.moveSilder();
                         break;
                 }
 
             });
 
-        $(window).on('resize', function() {
-            _this.pageWidht = document.documentElement.clientWidth;
-            _this.pageHeight = document.documentElement.clientHeight;
-            _this.$wrap.css({
-                'transform': 'translate3d(0,' + (-_this.iNow * _this.pageHeight) + 'px,0)',
-                '-webkit-transform': 'translate3d(0,' + (-_this.iNow * _this.pageHeight) + 'px,0)'
+        $(window).on('resize', function(){
+            self.pageWidht = document.documentElement.clientWidth;
+            self.pageHeight = document.documentElement.clientHeight;
+            self.$wrap.css({
+                'transform': 'translate3d(0,' + (-self.iNow * self.pageHeight) + 'px,0)',
+                '-webkit-transform': 'translate3d(0,' + (-self.iNow * self.pageHeight) + 'px,0)'
             });
         });
-
-    }
-
+    };
 
     // 事件触发后移动页面位置函数 依赖this.iNow
-    // ==============================
     FullPageSlider.prototype.moveSilder = function() {
-        var _this = this;
-        if (!_this.continuous) {
-            if (_this.iNow > _this.itemCont - 1) {
-                _this.iNow = _this.itemCont - 1;
-            } else if (_this.iNow < 0) {
-                _this.iNow = 0;
+        var self = this;
+        if (!self.continuous) {
+            if (self.iNow > self.itemCont - 1) {
+                self.iNow = self.itemCont - 1;
+            } else if (self.iNow < 0) {
+                self.iNow = 0;
+            }
+        } else {
+            if (self.iNow > self.itemCont + 1) {
+                self.iNow = self.iNow % self.itemCont;
+            } else if (self.iNow < -1) {
+                self.iNow = Math.abs(self.iNow % self.itemCont);
             }
         }
 
-        _this.animated = false;
-        _this.$wrap.animate({
-                'transform': 'translate3d(0,' + -_this.iNow * _this.pageHeight + 'px,0)',
-                '-webkit-transform': 'translate3d(0,' + -_this.iNow * _this.pageHeight + 'px,0)'
+        self.animated = false;
+        self.$wrap.animate({
+                'transform': 'translate3d(0,' + -self.iNow * self.pageHeight + 'px,0)',
+                '-webkit-transform': 'translate3d(0,' + -self.iNow * self.pageHeight + 'px,0)'
             },
-            _this.animationDuration,
-            _this.timingFunction,
+            self.animationDuration,
+            self.timingFunction,
             function() {
-                _this.animated = true;
+                self.animated = true;
                 // 如果无限 调用位置置换
-                _this.endJudge.call(_this);
+                self.endJudge.call(self);
             }
         );
-    }
+    };
 
     // 边界位置移动wrap函数 为当前可视页面添加class
-    // ==============================
     FullPageSlider.prototype.endJudge = function() {
-        var _this = this;
+        var self = this;
 
-        if (_this.continuous) {
-            if (_this.iNow > _this.itemCont) {
-                _this.iNow = 1;
-            } else if (_this.iNow < 1) {
-                _this.iNow = _this.itemCont;
+        if (self.continuous) {
+            if (self.iNow > self.itemCont) {
+                self.iNow = 1;
+            } else if (self.iNow < 1) {
+                self.iNow = self.itemCont;
             }
         }
 
-        _this.callback && _this.callback(_this.iNow);
-        _this.$items.eq(_this.iNow).addClass(_this.activeClassName).siblings().removeClass(_this.activeClassName);
+        self.callback && self.callback(self.iNow);
+        self.$items.eq(self.iNow).addClass(self.activeClassName).siblings().removeClass(self.activeClassName);
 
-        if (!_this.continuous) {
+        if (!self.continuous) {
             return;
         }
 
-        _this.$wrap.css({
-            'transform': 'translate3d(0,' + -_this.iNow * _this.pageHeight + 'px,0)',
-            '-webkit-transform': 'translate3d(0,' + -_this.iNow * _this.pageHeight + 'px,0)'
+        self.$wrap.css({
+            'transform': 'translate3d(0,' + -self.iNow * self.pageHeight + 'px,0)',
+            '-webkit-transform': 'translate3d(0,' + -self.iNow * self.pageHeight + 'px,0)'
         });
-    }
+    };
 
-    FullPageSlider.prototype.next = function(){
+    FullPageSlider.prototype.next = function() {
         this.iNow++;
         this.moveSilder();
-    }
+    };
 
-    FullPageSlider.prototype.prev = function(){
+    FullPageSlider.prototype.prev = function() {
         this.iNow--;
         this.moveSilder();
-    }
+    };
 
-    FullPageSlider.prototype.getPos = function(){
+    FullPageSlider.prototype.sliderTo = function(i) {
+        if (!this.continuous) {
+            this.iNow = i;
+        } else {
+            this.iNow = i + 1;
+        }
+        this.moveSilder();
+    };
+
+    FullPageSlider.prototype.getPos = function() {
         return this.iNow;
-    }
+    };
 
-    FullPageSlider.prototype.getNumSlides = function(){
+    FullPageSlider.prototype.getNumSlides = function() {
         return this.itemCont;
-    }
+    };
 
+    FullPageSlider.prototype.destroy = function(){
+        this.$items.removeClass(this.activeClassName);
+        this.$layout.off('touchstart').off('touchmove').off('touchend');
+        this.$wrap.attr('style',null);
+    };
 
     window.FullPageSlider = FullPageSlider;
 

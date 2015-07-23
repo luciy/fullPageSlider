@@ -109,18 +109,29 @@ var slider = new FullPageSlider({
 | :-------- | :--------|
 |`prev()`|	显示轮播图上一张。|
 |`next()`|	显示轮播图下一张。|
+|`sliderTo(num)`|	跳转到指定页面，num从0开始。|
 |`getPos()`	|返回当前幻灯片的索引位置。|
 |`getNumSlides()`	|返回幻灯片总量。|
 
 
 
 ------------------------------
+#### 谁在使用
+[汽车之家](http://www.autohome.com.cn/)
+
+------------------------------
+#### 成功案例
+[楼兰展示专题](http://topic.m.autohome.com.cn/2015/4/MURANO/)
+
+
+------------------------------
 
 #### 最新版本
+1.0.1(150723)		规范格式新增方法。
 0.3.1(150528)		新增API调用方法。
 
 ------------------------------
 #### 支持设备的浏览器
 
-- iOS7 Safari (and above)
+- iOS6 Safari (and above)
 - Android 4.0.3 (and above default browser)
